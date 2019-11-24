@@ -1,0 +1,52 @@
+Last login: Wed Nov 20 09:08:30 on console
+(base) EPIC-MAC-SIBALO:~ asibalo$ cd desktop/javascript
+(base) EPIC-MAC-SIBALO:javascript asibalo$ ls
+Chrome Extension
+(base) EPIC-MAC-SIBALO:javascript asibalo$ cd Extension
+-bash: cd: Extension: No such file or directory
+(base) EPIC-MAC-SIBALO:javascript asibalo$ cd extension
+-bash: cd: extension: No such file or directory
+(base) EPIC-MAC-SIBALO:javascript asibalo$ cd chrome extension
+-bash: cd: chrome: No such file or directory
+(base) EPIC-MAC-SIBALO:javascript asibalo$ cd 'chrome extension;
+> '
+-bash: cd: chrome extension;
+: No such file or directory
+(base) EPIC-MAC-SIBALO:javascript asibalo$ cd 'chrome extension'
+(base) EPIC-MAC-SIBALO:chrome extension asibalo$ ls
+background.js		manifest.json
+content.js		netflix_logo.png
+(base) EPIC-MAC-SIBALO:chrome extension asibalo$ git add .
+fatal: not a git repository (or any of the parent directories): .git
+(base) EPIC-MAC-SIBALO:chrome extension asibalo$ git init
+Initialized empty Git repository in /Users/asibalo/Desktop/JavaScript/Chrome Extension/.git/
+(base) EPIC-MAC-SIBALO:chrome extension asibalo$ git add .
+(base) EPIC-MAC-SIBALO:chrome extension asibalo$ git add README.md
+fatal: pathspec 'README.md' did not match any files
+(base) EPIC-MAC-SIBALO:chrome extension asibalo$ git remote add origin https://github.com/adosib/Netflix_Critic.git
+(base) EPIC-MAC-SIBALO:chrome extension asibalo$ vim .gitignore
+
+.DS_Store
+*.yaml
+*.env
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+-- INSERT -- 
