@@ -1,36 +1,27 @@
 console.log("Chrome extension activated");
 
-/*
-// Listen for users highlighting a title of a movie on the page
-window.addEventListener('mouseup', titleSelect);
-
-function titleSelect(){
-    let addOn = " movie";
-    let selectedTitle = window.getSelection().toString() + addOn;
-    console.log(selectedTitle);
-    if( selectedTitle.length > addOn.length ){
-        let message = {
-            title: selectedTitle
-        };
-        chrome.runtime.sendMessage(message);
-    }
-}
-*/
+console.log(document.getElementsByClassName("lolomoRow lolomoRow_title_card"));
 
 document.addEventListener("wheel", reloadDOM);
 document.addEventListener("mousedown", reloadDOM);
 
 var DOM = "";
-var reg = [];
+var title_cards = [];
 
 function reloadDOM(){
-    // If user scrolls or clicks, parse the DOM again since elements are
-    // dynamically loaded
-    DOM = document.all[0].outerHTML
-    // Get the text between '"fallback-text">' and '</p>'.
-    // This is the title of the movie.
-    reg = DOM.match(/(?<="fallback-text"\>\s*).*?(?=\s*\<\/p\>)/gs)
-    console.log(reg)
-}
+    title_cards = document.getElementsByClassName("lolomoRow_title_card");
+    title_cards = (title_cards[0].
+                   childNodes[1].
+                   childNodes[0].
+                   childNodes[0].
+                   childNodes[0].
+                   childNodes[0].
+                   childNodes[0].
+                   childNodes
+                   );
 
-console.log(sendResponse(document.all[0].outerHTML))
+    for(i = 0; i < title_cards.length; i++){
+        console.log(title_cards[i].innerText);
+        title_cards[i].innerHTML += "<p>Ratings go here</p>"
+    }
+}
