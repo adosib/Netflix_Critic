@@ -21,12 +21,8 @@ var title_cards_rows = [];
 function reloadDOM(){
     // Get all the rows containing title cards
     title_cards_rows = document.getElementsByClassName("lolomoRow_title_card");
-    console.log(title_cards_rows);
     // An array to hold a NodeList of movie data for each title_cards_rows object
     var movie_node_list = [];
-    // An array to hold movie titles
-    var movie = [];
-    
     // For each row, store the movie title of each title card
     for(i = 0; i < title_cards_rows.length; i++){
         // Assign the class name (string) to a variable in order to appropriately 
@@ -35,6 +31,8 @@ function reloadDOM(){
         var class_name = row_i.className;
         switch(class_name){
                 case "lolomoRow lolomoRow_title_card lolomoBigRow":
+                    // An array to hold movie titles
+                    let movie = [];
                     movie = (row_i.childNodes[0].childNodes[0].
                                     childNodes[0].childNodes[0].
                                     childNodes[0].childNodes[2].
@@ -46,30 +44,23 @@ function reloadDOM(){
                     movie_node_list = (row_i.childNodes[1].childNodes[0].
                                              childNodes[0].childNodes[0]
                                       );
-                    
-                    if( title_cards.childNodes.length > 1 ){
-                            movie = (movie_node_list.
-                                        childNodes[1].
-                                        childNodes[0].
-                                        childNodes
-                                        );
-                    } // end of if block
-                    else
-                    {
-                        movie = (movie_node_list.
-                                    childNodes[0].
-                                    childNodes[0].
-                                    childNodes
-                                    );
+                    let movies = movie_node_list.getElementsByClassName('slider-item');
+        
+                    for(j = 0; j < movies.length; j++){
+                        try{
+                            let movie = movies[j].getElementsByClassName('fallback-text-container')[0].innerText;
+                            movies[j].innerHTML += '<p>Ratings go here</p>';
+                            title_cards.push(movie);
+                        }
+                        catch(err){
+                            continue;
+                        }
                     }
+
                     break;
         } // end switch statement
 
-    title_cards.push(movie);
     } // end of for block
-
-    title_cards.push(movie);
-    console.log(title_cards_rows);
     console.log(title_cards);
 }
 
