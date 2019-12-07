@@ -17,53 +17,60 @@ function bodyScroll(){
 var DOM = "";
 var title_cards = [];
 var title_cards_rows = [];
-var movies = [];
 
 function reloadDOM(){
     // Get all the rows containing title cards
     title_cards_rows = document.getElementsByClassName("lolomoRow_title_card");
     console.log(title_cards_rows);
-    let title_card = [];
+    // An array to hold a NodeList of movie data for each title_cards_rows object
+    var movie_node_list = [];
+    // An array to hold movie titles
+    var movie = [];
     
-    try{
     // For each row, store the movie title of each title card
-        for(i = 0; i < title_cards_rows.length; i++){
-            title_card = (title_cards_rows[i].
-                          childNodes[1].
-                          childNodes[0].
-                          childNodes[0].
-                          childNodes[0]);
+    for(i = 0; i < title_cards_rows.length; i++){
+        // Assign the class name (string) to a variable in order to appropriately 
+        // deal with the different kinds of row classes.
+        var row_i = title_cards_rows[i];
+        var class_name = row_i.className;
+        switch(class_name){
+                case "lolomoRow lolomoRow_title_card lolomoBigRow":
+                    movie = (row_i.childNodes[0].childNodes[0].
+                                    childNodes[0].childNodes[0].
+                                    childNodes[0].childNodes[2].
+                                    childNodes[0].childNodes[0].alt
+                            );
+                    title_cards.push(movie);
+                    break;
+                default:
+                    movie_node_list = (row_i.childNodes[1].childNodes[0].
+                                             childNodes[0].childNodes[0]
+                                      );
+                    
+                    if( title_cards.childNodes.length > 1 ){
+                            movie = (movie_node_list.
+                                        childNodes[1].
+                                        childNodes[0].
+                                        childNodes
+                                        );
+                    } // end of if block
+                    else
+                    {
+                        movie = (movie_node_list.
+                                    childNodes[0].
+                                    childNodes[0].
+                                    childNodes
+                                    );
+                    }
+                    break;
+        } // end switch statement
 
-            if( title_cards.childNodes.length > 1 ){
-                    movies = (title_card.
-                              childNodes[1].
-                              childNodes[0].
-                              childNodes
-                             );
-            } // end of if block
-            else
-            {
-                movies = (title_card.
-                          childNodes[0].
-                          childNodes[0].
-                          childNodes
-                         );
-            }
-        title_cards.push(movies);
-        } // end of for block
-    }
-    catch(err){
-        movies = (title_cards_rows[i].
-                    childNodes[0].childNodes[0].
-                    childNodes[0].childNodes[0].
-                    childNodes[0].childNodes[2].
-                    childNodes[0].childNodes[0].alt);
-    }
-    finally{
-        title_cards.push(movies);
-        console.log(title_cards_rows);
-        console.log(title_cards);
-    }
+    title_cards.push(movie);
+    } // end of for block
+
+    title_cards.push(movie);
+    console.log(title_cards_rows);
+    console.log(title_cards);
 }
 
 let ratings_placeholder = "<p>Ratings go here</p>";
