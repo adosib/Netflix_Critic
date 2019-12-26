@@ -49,7 +49,10 @@ function reloadDOM(){
                     for(j = 0; j < movies.length; j++){
                         try{
                             let movie = movies[j].getElementsByClassName('fallback-text-container')[0].innerText;
-                            movies[j].innerHTML += '<p>Ratings go here</p>';
+                            if(movies[j].lastChild.innerText == "Ratings go here"){}
+                            else{
+                                movies[j].innerHTML += '<p>Ratings go here</p>';
+                            }
                             title_cards.push(movie);
                         }
                         catch(err){
