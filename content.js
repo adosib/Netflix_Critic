@@ -15,7 +15,7 @@ function bodyScroll(){
 }
 
 var DOM = "";
-var title_cards = [];
+var title_cards = new Set();
 var title_cards_rows = [];
 
 function reloadDOM(){
@@ -38,7 +38,7 @@ function reloadDOM(){
                                     childNodes[0].childNodes[2].
                                     childNodes[0].childNodes[0].alt
                             );
-                    title_cards.push(movie);
+                    title_cards.add(movie);
                     break;
                 default:
                     movie_node_list = (row_i.childNodes[1].childNodes[0].
@@ -53,7 +53,7 @@ function reloadDOM(){
                             else{
                                 movies[j].innerHTML += '<p>Ratings go here</p>';
                             }
-                            title_cards.push(movie);
+                            title_cards.add(movie);
                         }
                         catch(err){
                             continue;
