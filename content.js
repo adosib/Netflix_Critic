@@ -3,7 +3,7 @@ console.log("Chrome extension activated");
 //console.log(document.getElementsByClassName("lolomoRow lolomoRow_title_card"));
 
 document.addEventListener("wheel", bodyScroll);
-document.addEventListener("mousedown", reloadDOM);
+document.addEventListener("mousedown", click);
 
 var scroll_timer = -1;
 
@@ -14,13 +14,16 @@ function bodyScroll(){
     scroll_timer = window.setTimeout("reloadDOM()", 500);
 }
 
-var DOM = "";
-var title_cards = new Set();
-var title_cards_rows = [];
+function click(){
+    setTimeout(reloadDOM, 1000);
+}
+
+var title_cards_set = new Set();
+var title_cards_dict = {};
 
 function reloadDOM(){
     // Get all the rows containing title cards
-    title_cards_rows = document.getElementsByClassName("lolomoRow_title_card");
+    let title_cards_rows = document.getElementsByClassName("lolomoRow_title_card");
     // An array to hold a NodeList of movie data for each title_cards_rows object
     var movie_node_list = [];
     // For each row, store the movie title of each title card
@@ -38,7 +41,7 @@ function reloadDOM(){
                                     childNodes[0].childNodes[2].
                                     childNodes[0].childNodes[0].alt
                             );
-                    title_cards.add(movie);
+                    title_cards_set.add(movie);
                     break;
                 default:
                     movie_node_list = (row_i.childNodes[1].childNodes[0].
@@ -48,12 +51,19 @@ function reloadDOM(){
         
                     for(j = 0; j < movies.length; j++){
                         try{
+                            // Assign the movie title to the variable movie
                             let movie = movies[j].getElementsByClassName('fallback-text-container')[0].innerText;
-                            if(movies[j].lastChild.innerText == "Ratings go here"){}
-                            else{
-                                movies[j].innerHTML += '<p>Ratings go here</p>';
+                            let title_set_size = title_cards_set.size; // current size of set
+                            title_cards_set.add(movie);  // add the movie
+                            if(title_cards_set.size > title_set_size){  // if the set has increased in size
+                                title_cards_dict[movie] = getRating();  // add the movie, rating pair to the dict
                             }
-                            title_cards.add(movie);
+
+                            let rating = title_cards_dict[movie];
+                            if(movies[j].lastChild.innerText == rating){}
+                            else{
+                                movies[j].innerHTML += "<p>" + rating + "</p>";
+                            }
                         }
                         catch(err){
                             continue;
@@ -64,14 +74,12 @@ function reloadDOM(){
         } // end switch statement
 
     } // end of for block
-    console.log(title_cards);
+    console.log(title_cards_set);
+    console.log(title_cards_set.size);
+    console.log(title_cards_dict);
 }
 
-let ratings_placeholder = "<p>Ratings go here</p>";
-/*
-for(i = 0; i < title_cards.length; i++){
-    console.log(title_cards[i].innerText);
-    // This should move outside and then become innerHTML[last_element] = "<p>Ratings go here</p>"
-    title_cards[i].innerHTML += "<p>Ratings go here</p>";
+function getRating(){
+    let rating = Math.floor(Math.random() * 100) + "%";
+    return rating;
 }
-*/
