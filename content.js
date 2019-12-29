@@ -18,8 +18,8 @@ function click(){
     setTimeout(reloadDOM, 1000);
 }
 
-var title_cards_set = new Set();
-var title_cards_dict = {};
+var title_cards_set = new Set();  // to hold unique movie titles
+var title_cards_dict = {};  // to hold movie-rating pairs
 
 function reloadDOM(){
     // Get all the rows containing title cards
@@ -77,9 +77,15 @@ function reloadDOM(){
     console.log(title_cards_set);
     console.log(title_cards_set.size);
     console.log(title_cards_dict);
+    callbackFunc();
 }
 
 function getRating(){
-    let rating = Math.floor(Math.random() * 100) + "%";
+    let rating = "NA";
     return rating;
+}
+
+function callbackFunc(){
+    // Send movie titles without ratings to the background script
+    chrome.runtime.sendMessage(title_cards_dict);
 }

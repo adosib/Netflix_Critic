@@ -1,3 +1,5 @@
 .DS_Store
 *.yaml
 *.env
+config*
+api_key.txt
